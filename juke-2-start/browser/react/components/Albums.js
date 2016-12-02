@@ -4,8 +4,7 @@ import {Router, Route, browserHistory, Link} from 'react-router';
 const Albums = (props) => {
 
   const albums = props.albums;
-  const selectAlbum = props.selectAlbum;
-
+  console.log(props)
   return (
     <div>
       <h3>Albums</h3>
@@ -13,8 +12,6 @@ const Albums = (props) => {
       {
         albums.map(album => (
           <div className="col-xs-4 thumbnail" key={ album.id }>
-           
-            
               <img src={ album.imageUrl } />
               <div className="caption">
                <h5>

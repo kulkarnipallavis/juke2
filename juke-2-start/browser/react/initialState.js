@@ -6,7 +6,8 @@ const initialState = {
   isPlaying: false,
   progress: 0,
   artists: [],
-  selectedArtist: {}
+  artistInfo: { selectedArtist : {}, artistAlbums : [], artistSongs : []}
+
 };
 
 export default initialState;

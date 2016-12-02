@@ -9,6 +9,7 @@ import Album from '../components/Album';
 import Sidebar from '../components/Sidebar';
 import Player from '../components/Player';
 import Artists from '../components/Artists';
+import Artist from '../components/Artist';
 
 import { convertAlbum, convertAlbums, skip } from '../utils';
 
@@ -24,6 +25,7 @@ export default class AppContainer extends Component {
     this.prev = this.prev.bind(this);
     this.selectAlbum = this.selectAlbum.bind(this);
     this.deselectAlbum = this.deselectAlbum.bind(this);
+    this.selectArtist = this.selectArtist.bind(this);
   }
 
   componentDidMount () {
@@ -113,7 +115,33 @@ export default class AppContainer extends Component {
     this.setState({ selectedAlbum: {}});
   }
 
+  selectArtist(artistId) {
+
+    Promise.all([
+      axios.get(`/api/artists/${artistId}`)
+        .then(res => res.data),
+        // .then(artist => {selectedArtist : artist})
+
+      axios.get(`/api/artists/${artistId}/albums`)
+        .then(res => res.data)
+        .then(convertAlbums),
+        // .then(albums => {artistAlbums : albums}),
+
+      axios.get(`/api/artists/${artistId}/songs`)
+        .then(res => res.data)
+        // .then(songs => {artistSongs : songs})
+      ])
+      .then(([selectedArtist, artistAlbums, artistSongs]) => {
+        this.setState ({
+          artistInfo : {selectedArtist, artistAlbums, artistSongs}
+        })
+      })
+  }
+
+
+
   render () {
+    console.log(this.state.artistInfo)
     return (
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
@@ -129,7 +157,9 @@ export default class AppContainer extends Component {
                 toggleOne:this.toggleOne,
                 albums: this.state.albums,
                 selectAlbum: this.selectAlbum,
-                artists : this.state.artists
+                selectArtist : this.selectArtist,
+                artists : this.state.artists,
+                artistInfo : this.state.artistInfo
               }) 
             : null 
 
