@@ -1,12 +1,15 @@
 import React from 'react';
 import Songs from '../components/Songs';
 
+
 const Album = (props) => {
 
   const album = props.album;
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
   const toggleOne = props.toggleOne;
+
+  
 
   return (
     <div className="album">

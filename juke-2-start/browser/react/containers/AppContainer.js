@@ -28,7 +28,16 @@ export default class AppContainer extends Component {
   componentDidMount () {
     axios.get('/api/albums/')
       .then(res => res.data)
-      .then(album => this.onLoad(convertAlbums(album)));
+      .then(album => {
+        this.onLoad(convertAlbums(album))
+      });
+
+    axios.get('/api/albums/:id')
+      .then(res => res.data)
+      .then(album => {
+        this.onLoad(convertAlbum(selectAlbum(album.id));
+      })
+    
 
     AUDIO.addEventListener('ended', () =>
       this.next());
@@ -60,6 +69,7 @@ export default class AppContainer extends Component {
       currentSongList: currentSongList
     });
   }
+
 
   startSong (song, list) {
     this.pause();
