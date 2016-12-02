@@ -32,11 +32,11 @@ export default class AppContainer extends Component {
         this.onLoad(convertAlbums(album))
       });
 
-    axios.get('/api/albums/:id')
-      .then(res => res.data)
-      .then(album => {
-        this.onLoad(convertAlbum(selectAlbum(album.id));
-      })
+    // axios.get('/api/albums/:id')
+    //   .then(res => res.data)
+    //   .then(album => {
+    //     this.onLoad(convertAlbum(selectAlbum(album.id));
+    // })
     
 
     AUDIO.addEventListener('ended', () =>
